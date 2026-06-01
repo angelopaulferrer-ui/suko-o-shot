@@ -1099,6 +1099,28 @@ body {
   padding: 6px;
 }
 
+/* deck-end: small low-emphasis replay fallback under the unlock CTA */
+.replay-link {
+  margin-top: 14px;
+  border: none;
+  background: none;
+  color: #7b7689;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px;
+}
+.replay-link:active {
+  color: #a39db2;
+}
+
+/* bottom link styled as an unlock nudge for free players */
+.reshuffle-link.unlock {
+  color: var(--shot);
+  font-weight: 700;
+}
+
 /* paywall sheet */
 .board-sheet.paywall {
   text-align: center;

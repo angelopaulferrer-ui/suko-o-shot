@@ -193,15 +193,28 @@ export default function Game({
         {out ? (
           <div className="deck-empty">
             <div className="de-emoji">🍹</div>
-            <h3>Ubos na ang deck!</h3>
-            <p>Naka-{seen} card kayo. Tara, bagong deck?</p>
-            <button className="start-btn slim" onClick={reshuffle}>
-              Bagong Deck 🔀
-            </button>
-            {!premium && (
-              <button className="unlock-nudge" onClick={onUpgrade}>
-                🔓 Gusto mo pa? I-unlock lahat ng {TOTAL_COUNT} cards →
-              </button>
+            {premium ? (
+              <>
+                <h3>Ubos na ang deck!</h3>
+                <p>Naka-{seen} card kayo. Tara, bagong deck?</p>
+                <button className="start-btn slim" onClick={reshuffle}>
+                  Bagong Deck 🔀
+                </button>
+              </>
+            ) : (
+              <>
+                <h3>Ubos na ang libreng deck!</h3>
+                <p>
+                  Na-explore niyo na lahat ng {seen} libreng cards. May{" "}
+                  {TOTAL_COUNT - seen} pa para sa mas matinding gabi.
+                </p>
+                <button className="start-btn slim" onClick={onUpgrade}>
+                  🔓 I-unlock lahat ng {TOTAL_COUNT} cards
+                </button>
+                <button className="replay-link" onClick={reshuffle}>
+                  Ulitin muna ang {seen} 🔀
+                </button>
+              </>
             )}
           </div>
         ) : (
@@ -246,9 +259,16 @@ export default function Game({
             </button>
           </div>
         ))}
-      <button className="reshuffle-link" onClick={reshuffle}>
-        🔀 Bagong deck
-      </button>
+      {!out &&
+        (premium ? (
+          <button className="reshuffle-link" onClick={reshuffle}>
+            🔀 Bagong deck
+          </button>
+        ) : (
+          <button className="reshuffle-link unlock" onClick={onUpgrade}>
+            🔓 I-unlock lahat ng {TOTAL_COUNT} cards
+          </button>
+        ))}
 
       {/* leaderboard */}
       {board && (
