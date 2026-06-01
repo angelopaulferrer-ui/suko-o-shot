@@ -259,16 +259,13 @@ export default function Game({
             </button>
           </div>
         ))}
-      {!out &&
-        (premium ? (
-          <button className="reshuffle-link" onClick={reshuffle}>
-            🔀 Bagong deck
-          </button>
-        ) : (
-          <button className="reshuffle-link unlock" onClick={onUpgrade}>
-            🔓 I-unlock lahat ng {TOTAL_COUNT} cards
-          </button>
-        ))}
+      {/* Bagong deck reshuffle is premium-only; free players have no bottom
+          option — their deck-end screen drives the unlock instead. */}
+      {!out && premium && (
+        <button className="reshuffle-link" onClick={reshuffle}>
+          🔀 Bagong deck
+        </button>
+      )}
 
       {/* leaderboard */}
       {board && (
