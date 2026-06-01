@@ -127,35 +127,65 @@ export default function SwipeDeck({
             <h2 className="card-title">{card.title}</h2>
             <p className="card-body">{card.body}</p>
             <div className="card-foot">
-              <span className="foot-hint left">
-                <b>← Suko</b> · shot
-              </span>
-              <span className="foot-hint right">
-                Ginawa <b>→</b>
-              </span>
+              {card.keep ? (
+                <span className="foot-hint keep">
+                  🎟️ <b>I-swipe para Kunin</b> · i-save ang pass
+                </span>
+              ) : (
+                <>
+                  <span className="foot-hint left">
+                    <b>← Suko</b> · shot
+                  </span>
+                  <span className="foot-hint right">
+                    Ginawa <b>→</b>
+                  </span>
+                </>
+              )}
             </div>
-            {isTop && (
-              <>
-                <div
-                  className="stamp stamp-suko"
-                  style={{
-                    opacity:
-                      intent === "suko" ? Math.min(1, (-drag.x - 28) / 70) : 0,
-                  }}
-                >
-                  SHOT 🥃
-                </div>
-                <div
-                  className="stamp stamp-ginawa"
-                  style={{
-                    opacity:
-                      intent === "ginawa" ? Math.min(1, (drag.x - 28) / 70) : 0,
-                  }}
-                >
-                  GINAWA ✓
-                </div>
-              </>
-            )}
+            {isTop &&
+              (card.keep ? (
+                <>
+                  <div
+                    className="stamp stamp-keep right"
+                    style={{
+                      opacity:
+                        intent === "suko" ? Math.min(1, (-drag.x - 28) / 70) : 0,
+                    }}
+                  >
+                    KUNIN 🎟️
+                  </div>
+                  <div
+                    className="stamp stamp-keep left"
+                    style={{
+                      opacity:
+                        intent === "ginawa" ? Math.min(1, (drag.x - 28) / 70) : 0,
+                    }}
+                  >
+                    KUNIN 🎟️
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div
+                    className="stamp stamp-suko"
+                    style={{
+                      opacity:
+                        intent === "suko" ? Math.min(1, (-drag.x - 28) / 70) : 0,
+                    }}
+                  >
+                    SHOT 🥃
+                  </div>
+                  <div
+                    className="stamp stamp-ginawa"
+                    style={{
+                      opacity:
+                        intent === "ginawa" ? Math.min(1, (drag.x - 28) / 70) : 0,
+                    }}
+                  >
+                    GINAWA ✓
+                  </div>
+                </>
+              ))}
           </article>
         );
       })}

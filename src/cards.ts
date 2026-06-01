@@ -16,6 +16,8 @@ export interface Card {
   category: Category;
   title: string;
   body: string;
+  /** Keepable token card (e.g. Free Pass): claimed by a player to spend later. */
+  keep?: boolean;
 }
 
 export interface CategoryMeta {
@@ -451,13 +453,15 @@ export const CARDS: Card[] = [
     id: 67,
     category: "wild",
     title: "Free Pass",
-    body: "Gusto kong happy ka. Itago ang baraha — pang-iwas sa kahit ilang shot, basta sa loob ng gabi.",
+    body: "Gusto kong happy ka. Kunin ang baraha — pwede mong gamitin para iwasan ang isang shot, kahit kailan ngayong gabi.",
+    keep: true,
   },
   {
     id: 68,
     category: "wild",
     title: "Hindi pa Suko",
-    body: "Mukhang susuko ka na? Itago 'to. Pwede mong gamitin para makaiwas pag pinilit kang uminom.",
+    body: "Mukhang susuko ka na? Kunin 'to. I-save bilang pang-iwas pag pinilit kang uminom mamaya.",
+    keep: true,
   },
   {
     id: 69,

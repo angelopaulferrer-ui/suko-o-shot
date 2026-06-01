@@ -19,7 +19,7 @@ function buildDeck(activeCats: Set<Category>): Card[] {
 
 interface Toast {
   msg: string;
-  tone: "suko" | "ginawa" | "neutral";
+  tone: "suko" | "ginawa" | "neutral" | "pass";
 }
 
 export default function Game({
@@ -35,6 +35,7 @@ export default function Game({
   const [pos, setPos] = useState(0);
   const [turn, setTurn] = useState(0);
   const [shots, setShots] = useState<number[]>(() => players.map(() => 0));
+  const [passes, setPasses] = useState<number[]>(() => players.map(() => 0));
   const [filter, setFilter] = useState<Set<Category>>(new Set(cats));
   const [toast, setToast] = useState<Toast | null>(null);
   const [board, setBoard] = useState(false);
@@ -53,9 +54,25 @@ export default function Game({
     setToast({ msg: "Bagong deck! 🔀", tone: "neutral" });
   };
 
+  // advance past the given card and pass the phone to the next player
+  const advance = (card: Card) => {
+    const realIdx = deck.indexOf(card);
+    setPos(realIdx + 1);
+    setTurn((tn) => (tn + 1) % players.length);
+  };
+
   const resolve = (verdict: Verdict) => {
     const card = view[0];
     if (!card) return;
+    // Keepable cards (Free Pass etc.) are claimed by the current player —
+    // either swipe direction or the Kunin button grants a token.
+    if (card.keep) {
+      setPasses((p) => p.map((v, i) => (i === turn ? v + 1 : v)));
+      setToast({ msg: `${current.name} — +1 Free Pass 🎟️`, tone: "pass" });
+      tick();
+      advance(card);
+      return;
+    }
     if (verdict === "suko") {
       setShots((s) => s.map((v, i) => (i === turn ? v + 1 : v)));
       setToast({ msg: `${current.name} — SHOT! 🥃`, tone: "suko" });
@@ -65,9 +82,17 @@ export default function Game({
       setToast({ msg: `${current.name} — Ginawa! ✓`, tone: "ginawa" });
       tick();
     }
-    const realIdx = deck.indexOf(card);
-    setPos(realIdx + 1);
-    setTurn((tn) => (tn + 1) % players.length);
+    advance(card);
+  };
+
+  // Spend a held Free Pass to dodge the current card's shot.
+  const usePass = () => {
+    const card = view[0];
+    if (!card || card.keep || passes[turn] < 1) return;
+    setPasses((p) => p.map((v, i) => (i === turn ? v - 1 : v)));
+    setToast({ msg: `${current.name} — Free Pass! 🎟️ ligtas`, tone: "pass" });
+    tick();
+    advance(card);
   };
 
   useEffect(() => {
@@ -104,6 +129,16 @@ export default function Game({
             <span className="turn-label">Tira ni</span>
             <strong>{current.name}</strong>
           </span>
+          {passes[turn] > 0 && (
+            <button
+              className="pass-badge"
+              onClick={usePass}
+              disabled={out || !!view[0]?.keep}
+              title="Gamitin ang Free Pass — iwas sa shot"
+            >
+              🎟️ {passes[turn]}
+            </button>
+          )}
         </div>
         <button className="ghost-btn score" onClick={() => setBoard(true)}>
           🥃 {shots.reduce((a, b) => a + b, 0)}
@@ -156,24 +191,41 @@ export default function Game({
       </div>
 
       {/* action buttons */}
-      {!out && (
-        <div className="action-row">
-          <button className="act-btn suko" onClick={() => resolve("suko")}>
-            <span className="act-emoji">🥃</span>
-            <span className="act-txt">
-              <b>Suko</b>
-              <small>uminom</small>
-            </span>
-          </button>
-          <button className="act-btn ginawa" onClick={() => resolve("ginawa")}>
-            <span className="act-txt">
-              <b>Ginawa</b>
-              <small>safe</small>
-            </span>
-            <span className="act-emoji">✓</span>
-          </button>
-        </div>
-      )}
+      {!out &&
+        (view[0]?.keep ? (
+          <div className="action-row">
+            <button
+              className="act-btn keep"
+              onClick={() => resolve("ginawa")}
+            >
+              <span className="act-emoji">🎟️</span>
+              <span className="act-txt">
+                <b>Kunin</b>
+                <small>i-save kay {current.name}</small>
+              </span>
+            </button>
+          </div>
+        ) : (
+          <div className="action-row">
+            <button className="act-btn suko" onClick={() => resolve("suko")}>
+              <span className="act-emoji">🥃</span>
+              <span className="act-txt">
+                <b>Suko</b>
+                <small>uminom</small>
+              </span>
+            </button>
+            <button
+              className="act-btn ginawa"
+              onClick={() => resolve("ginawa")}
+            >
+              <span className="act-txt">
+                <b>Ginawa</b>
+                <small>safe</small>
+              </span>
+              <span className="act-emoji">✓</span>
+            </button>
+          </div>
+        ))}
       <button className="reshuffle-link" onClick={reshuffle}>
         🔀 Bagong deck
       </button>
@@ -193,6 +245,9 @@ export default function Game({
                     <span className="bl-rank">{rank + 1}</span>
                     <span className="bl-dot" />
                     <span className="bl-name">{p.name}</span>
+                    {passes[i] > 0 && (
+                      <span className="bl-pass">🎟️ {passes[i]}</span>
+                    )}
                     <span className="bl-count">
                       {n} <small>shot{n === 1 ? "" : "s"}</small>
                     </span>
