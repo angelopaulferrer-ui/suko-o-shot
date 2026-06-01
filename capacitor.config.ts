@@ -3,7 +3,7 @@ import type { CapacitorConfig } from "@capacitor/cli";
 const devMode = process.env.CAPACITOR_DEV === "true";
 
 const config: CapacitorConfig = {
-  appId: "com.picklr.sukooshot",
+  appId: "com.sukooshot.app",
   appName: "Suko o Shot",
   webDir: "dist",
   // Local dev: point the native shell at the Vite dev server so changes
@@ -16,7 +16,7 @@ const config: CapacitorConfig = {
   }),
   ios: {
     // Let CSS own the safe-area insets (avoids OS-level scroll insets that
-    // can produce black bars top/bottom). Matches the Picklr setup.
+    // can produce black bars top/bottom).
     contentInset: "never",
     limitsNavigationsToAppBoundDomains: false,
   },

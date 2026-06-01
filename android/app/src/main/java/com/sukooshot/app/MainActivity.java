@@ -1,4 +1,4 @@
-package com.picklr.sukooshot;
+package com.sukooshot.app;
 
 import com.getcapacitor.BridgeActivity;
 
