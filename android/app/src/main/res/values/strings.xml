@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Suko o Shot</string>
+    <string name="title_activity_main">Suko o Shot</string>
+    <string name="package_name">com.picklr.sukooshot</string>
+    <string name="custom_url_scheme">com.picklr.sukooshot</string>
+</resources>

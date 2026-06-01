@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { CARDS, CATEGORIES, type Card, type Category } from "./cards";
 import SwipeDeck, { type Verdict } from "./SwipeDeck";
 import type { Player } from "./Setup";
+import { buzzShot, tick } from "./native";
 
 const shuffle = <T,>(a: T[]): T[] => {
   const x = a.slice();
@@ -59,8 +60,10 @@ export default function Game({
       setShots((s) => s.map((v, i) => (i === turn ? v + 1 : v)));
       setToast({ msg: `${current.name} — SHOT! 🥃`, tone: "suko" });
       setPulse((p) => p + 1);
+      buzzShot();
     } else {
       setToast({ msg: `${current.name} — Ginawa! ✓`, tone: "ginawa" });
+      tick();
     }
     const realIdx = deck.indexOf(card);
     setPos(realIdx + 1);
