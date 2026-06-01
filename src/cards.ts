@@ -18,17 +18,26 @@ export interface Card {
   body: string;
 }
 
-export const CATEGORY_META: Record<
-  Category,
-  { label: string; color: string; emoji: string }
-> = {
-  pili: { label: "Pili", color: "#a78bfa", emoji: "👈" },
-  ikaw: { label: "Ikaw", color: "#fb7185", emoji: "🥃" },
-  grupo: { label: "Grupo", color: "#fbbf24", emoji: "🍻" },
-  laro: { label: "Laro", color: "#34d399", emoji: "🎲" },
-  quiz: { label: "Quiz", color: "#60a5fa", emoji: "🧠" },
-  wild: { label: "Wild", color: "#f472b6", emoji: "⚡" },
+export interface CategoryMeta {
+  id: Category;
+  label: string;
+  emoji: string;
+  color: string; // neon glow / accent
+  deep: string; // deeper shade for gradients
+  tag: string; // small uppercase tag shown on the card
+}
+
+export const CATEGORIES: Record<Category, CategoryMeta> = {
+  pili: { id: "pili", label: "Pili", emoji: "👈", color: "#a78bfa", deep: "#6d28d9", tag: "Iboto" },
+  ikaw: { id: "ikaw", label: "Ikaw", emoji: "🥃", color: "#ff6b6b", deep: "#b91c1c", tag: "Solo" },
+  grupo: { id: "grupo", label: "Grupo", emoji: "🍻", color: "#fbbf24", deep: "#b45309", tag: "Lahat" },
+  laro: { id: "laro", label: "Laro", emoji: "🎲", color: "#34d399", deep: "#047857", tag: "Hamon" },
+  quiz: { id: "quiz", label: "Quiz", emoji: "🧠", color: "#60a5fa", deep: "#1d4ed8", tag: "Sagot" },
+  wild: { id: "wild", label: "Wild", emoji: "⚡", color: "#f472b6", deep: "#be185d", tag: "Twist" },
 };
+
+// Back-compat alias for any older imports.
+export const CATEGORY_META = CATEGORIES;
 
 export const CARDS: Card[] = [
   // ============ PILI (vote / pick someone) ============
