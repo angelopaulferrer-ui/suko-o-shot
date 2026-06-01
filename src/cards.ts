@@ -673,15 +673,31 @@ export const CARDS: Card[] = [
 ];
 
 // ── Freemium tier ────────────────────────────────────────
-// Free players get the first N cards of each category; premium unlocks all.
-const FREE_PER_CATEGORY = 5;
+// Free players get a flat FREE_LIMIT cards; premium unlocks all.
+// Picked round-robin across categories so the free taste spans every deck.
+const FREE_LIMIT = 10;
 
 export const FREE_IDS: Set<number> = (() => {
-  const counts: Partial<Record<Category, number>> = {};
-  const free = new Set<number>();
+  const byCat = new Map<Category, number[]>();
   for (const c of CARDS) {
-    const n = (counts[c.category] = (counts[c.category] ?? 0) + 1);
-    if (n <= FREE_PER_CATEGORY) free.add(c.id);
+    const list = byCat.get(c.category) ?? [];
+    list.push(c.id);
+    byCat.set(c.category, list);
+  }
+  const columns = [...byCat.values()];
+  const free = new Set<number>();
+  let row = 0;
+  while (free.size < FREE_LIMIT) {
+    let added = false;
+    for (const col of columns) {
+      if (free.size >= FREE_LIMIT) break;
+      if (row < col.length) {
+        free.add(col[row]);
+        added = true;
+      }
+    }
+    if (!added) break; // ran out of cards
+    row++;
   }
   return free;
 })();
