@@ -1,5 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { CARDS, CATEGORIES, type Card, type Category } from "./cards";
+import {
+  CARDS,
+  CATEGORIES,
+  FREE_IDS,
+  TOTAL_COUNT,
+  type Card,
+  type Category,
+} from "./cards";
 import SwipeDeck, { type Verdict } from "./SwipeDeck";
 import type { Player } from "./Setup";
 import { buzzShot, tick } from "./native";
@@ -13,8 +20,12 @@ const shuffle = <T,>(a: T[]): T[] => {
   return x;
 };
 
-function buildDeck(activeCats: Set<Category>): Card[] {
-  return shuffle(CARDS.filter((c) => activeCats.has(c.category)));
+function buildDeck(activeCats: Set<Category>, premium: boolean): Card[] {
+  return shuffle(
+    CARDS.filter(
+      (c) => activeCats.has(c.category) && (premium || FREE_IDS.has(c.id))
+    )
+  );
 }
 
 interface Toast {
@@ -25,13 +36,17 @@ interface Toast {
 export default function Game({
   players,
   cats,
+  premium,
   onQuit,
+  onUpgrade,
 }: {
   players: Player[];
   cats: Set<Category>;
+  premium: boolean;
   onQuit: () => void;
+  onUpgrade: () => void;
 }) {
-  const [deck, setDeck] = useState<Card[]>(() => buildDeck(cats));
+  const [deck, setDeck] = useState<Card[]>(() => buildDeck(cats, premium));
   const [pos, setPos] = useState(0);
   const [turn, setTurn] = useState(0);
   const [shots, setShots] = useState<number[]>(() => players.map(() => 0));
@@ -49,7 +64,7 @@ export default function Game({
   const current = players[turn];
 
   const reshuffle = () => {
-    setDeck(buildDeck(cats));
+    setDeck(buildDeck(cats, premium));
     setPos(0);
     setToast({ msg: "Bagong deck! 🔀", tone: "neutral" });
   };
@@ -183,6 +198,11 @@ export default function Game({
             <button className="start-btn slim" onClick={reshuffle}>
               Bagong Deck 🔀
             </button>
+            {!premium && (
+              <button className="unlock-nudge" onClick={onUpgrade}>
+                🔓 Gusto mo pa? I-unlock lahat ng {TOTAL_COUNT} cards →
+              </button>
+            )}
           </div>
         ) : (
           <SwipeDeck stack={view} onResolve={resolve} />

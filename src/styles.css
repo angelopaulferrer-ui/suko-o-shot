@@ -1027,6 +1027,173 @@ body {
   margin-right: 4px;
 }
 
+/* ── Freemium: deck banner, nudge, paywall ───────────── */
+.deck-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 16px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: transform 0.12s, background 0.2s;
+}
+.deck-banner:active {
+  transform: scale(0.98);
+}
+.deck-banner.locked {
+  background: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--shot) 16%, transparent),
+    color-mix(in oklab, #f472b6 16%, transparent)
+  );
+  border-color: color-mix(in oklab, var(--shot) 40%, transparent);
+}
+.deck-banner.premium {
+  background: color-mix(in oklab, var(--shot) 12%, transparent);
+  border-color: color-mix(in oklab, var(--shot) 35%, transparent);
+  cursor: default;
+}
+.db-emoji {
+  font-size: 22px;
+}
+.db-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  flex: 1;
+  min-width: 0;
+}
+.db-text b {
+  font-size: 15px;
+  color: var(--ink);
+}
+.db-text small {
+  font-size: 12px;
+  color: #a39db2;
+}
+.db-cta {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #0a0a0a;
+  background: var(--shot);
+  padding: 5px 10px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+
+.unlock-nudge {
+  margin-top: 14px;
+  border: none;
+  background: none;
+  color: var(--shot);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 6px;
+}
+
+/* paywall sheet */
+.board-sheet.paywall {
+  text-align: center;
+}
+.pw-badge {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: #0a0a0a;
+  background: var(--shot);
+  padding: 6px 14px;
+  border-radius: 99px;
+  margin-bottom: 12px;
+  box-shadow: 0 0 22px color-mix(in oklab, var(--shot) 50%, transparent);
+}
+.pw-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 27px;
+  margin: 0 0 8px;
+  color: #fff;
+}
+.pw-sub {
+  margin: 0 0 18px;
+  color: #a39db2;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.pw-sub b {
+  color: var(--ink);
+}
+.pw-perks {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  text-align: left;
+}
+.pw-perks li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #e7e4d4;
+}
+.pw-perks li span {
+  font-size: 20px;
+  width: 26px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.pw-err {
+  color: #ff8a8a;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.start-btn.pw-buy {
+  margin-top: 0;
+  width: 100%;
+}
+.pw-restore {
+  margin-top: 12px;
+  width: 100%;
+  border: none;
+  background: none;
+  color: #a39db2;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px;
+}
+.pw-close {
+  margin-top: 4px;
+  width: 100%;
+  border: none;
+  background: none;
+  color: #6b6679;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px;
+}
+.pw-restore:disabled,
+.pw-close:disabled {
+  opacity: 0.5;
+}
+
 @media (max-width: 380px) {
   .logo-line {
     font-size: 46px;

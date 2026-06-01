@@ -670,3 +670,21 @@ export const CARDS: Card[] = [
     body: "Walang pinili, walang pinatawad. Lahat tayo, isang shot. Cheers — Suko o Shot!",
   },
 ];
+
+// ── Freemium tier ────────────────────────────────────────
+// Free players get the first N cards of each category; premium unlocks all.
+const FREE_PER_CATEGORY = 5;
+
+export const FREE_IDS: Set<number> = (() => {
+  const counts: Partial<Record<Category, number>> = {};
+  const free = new Set<number>();
+  for (const c of CARDS) {
+    const n = (counts[c.category] = (counts[c.category] ?? 0) + 1);
+    if (n <= FREE_PER_CATEGORY) free.add(c.id);
+  }
+  return free;
+})();
+
+export const FREE_COUNT = FREE_IDS.size;
+export const TOTAL_COUNT = CARDS.length;
+export const isFreeCard = (c: Card) => FREE_IDS.has(c.id);

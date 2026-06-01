@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { CATEGORIES, type Category } from "./cards";
+import { CATEGORIES, FREE_COUNT, TOTAL_COUNT, type Category } from "./cards";
 
 export interface Player {
   name: string;
@@ -19,8 +19,12 @@ export const PLAYER_COLORS = [
 
 export default function Setup({
   onStart,
+  premium,
+  onUpgrade,
 }: {
   onStart: (players: Player[], cats: Set<Category>) => void;
+  premium: boolean;
+  onUpgrade: () => void;
 }) {
   const [players, setPlayers] = useState<Player[]>([]);
   const [name, setName] = useState("");
@@ -60,6 +64,25 @@ export default function Setup({
         </div>
         <p className="tagline">Gawin ang hamon… o uminom. Walang awa.</p>
       </div>
+
+      {premium ? (
+        <div className="deck-banner premium">
+          <span className="db-emoji">✨</span>
+          <div className="db-text">
+            <b>Buong deck</b>
+            <small>Lahat ng {TOTAL_COUNT} cards naka-unlock</small>
+          </div>
+        </div>
+      ) : (
+        <button className="deck-banner locked" onClick={onUpgrade}>
+          <span className="db-emoji">🔓</span>
+          <div className="db-text">
+            <b>Libreng {FREE_COUNT} cards</b>
+            <small>I-unlock lahat ng {TOTAL_COUNT} →</small>
+          </div>
+          <span className="db-cta">PREMIUM</span>
+        </button>
+      )}
 
       <div className="setup-block">
         <div className="block-label">
