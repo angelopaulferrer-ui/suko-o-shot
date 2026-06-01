@@ -492,4 +492,168 @@ export const CARDS: Card[] = [
     title: "Ding, Ang Baso",
     body: "Sumigaw sa kasama mong nagsasalin: 'Ding, ang baso… SHOT NA!' Ngayon na, bago ka mahiya.",
   },
+
+  // ============ EXPANSION (cards 76–100) ============
+
+  // ---- PILI ----
+  {
+    id: 76,
+    category: "pili",
+    title: "Lagi Late",
+    body: "Iboto kung sino ang laging huli sa lakad. Shot — on time ka naman sana sa tagay.",
+  },
+  {
+    id: 77,
+    category: "pili",
+    title: "Seenzone King",
+    body: "Iboto kung sino ang hari ng seenzone at ghosting. Shot siya — walang reply, walang awa.",
+  },
+  {
+    id: 78,
+    category: "pili",
+    title: "Lasing Drama",
+    body: "Iboto kung sino ang pinaka-OA o iyakin kapag lasing. Siya ang pipili kung sino ang iinom.",
+  },
+  {
+    id: 79,
+    category: "pili",
+    title: "Mababaw Matawa",
+    body: "Iboto kung sino ang natatawa kahit walang katuturan. Inom, para may dahilan man lang.",
+  },
+  {
+    id: 80,
+    category: "pili",
+    title: "Lightweight",
+    body: "Iboto kung sino ang pinaka-mahina uminom. Isang shot — go lang, kaya mo 'yan, baby.",
+  },
+
+  // ---- IKAW ----
+  {
+    id: 81,
+    category: "ikaw",
+    title: "Huling Nag-post",
+    body: "Kung sino ang pinaka-huling nag-post sa socials, shot. Active user tax 'yan.",
+  },
+  {
+    id: 82,
+    category: "ikaw",
+    title: "Low Bat",
+    body: "Tingnan ang phone. Sino mang pinaka-mababa ang baterya, shot. Tapos charge ka na.",
+  },
+  {
+    id: 83,
+    category: "ikaw",
+    title: "Naka-Tsinelas",
+    body: "Naka-tsinelas o sandals ka ba ngayon? Kung oo, shot. Sobrang casual mo, pre.",
+  },
+  {
+    id: 84,
+    category: "ikaw",
+    title: "Ex sa Contacts",
+    body: "Naka-save pa ba ang number ng ex mo? Kung oo, shot. Kung deleted na, respect — ligtas ka.",
+  },
+
+  // ---- GRUPO ----
+  {
+    id: 85,
+    category: "grupo",
+    title: "May Utang",
+    body: "Lahat ng may utang sa kasama ngayong gabi, shot. Bayad muna sa konsensya.",
+  },
+  {
+    id: 86,
+    category: "grupo",
+    title: "Team Itim",
+    body: "Lahat ng naka-itim na damit ngayon, shot. Edgy kayo, idol.",
+  },
+  {
+    id: 87,
+    category: "grupo",
+    title: "Inked",
+    body: "Lahat ng may tattoo, shot. Pakita niyo 'yan mamaya, pang-story.",
+  },
+  {
+    id: 88,
+    category: "grupo",
+    title: "Heartbreak 'Yan",
+    body: "Lahat ng nasaktan sa pag-ibig ngayong taon, shot. Cheers sa healing journey.",
+  },
+  {
+    id: 89,
+    category: "grupo",
+    title: "Working Student",
+    body: "Lahat ng working student o nag-aaral pa, shot. Laban lang, future boss.",
+  },
+
+  // ---- LARO ----
+  {
+    id: 90,
+    category: "laro",
+    title: "Beer Categories",
+    body: "Pumili ng kategorya (hal. brand ng beer). Paikot, walang ulit. Ma-blanko, shot.",
+  },
+  {
+    id: 91,
+    category: "laro",
+    title: "Clap Rhythm",
+    body: "Sundan ang clap pattern ng host, dagdagan ng isa paikot. Unang masira ang ritmo, shot.",
+  },
+  {
+    id: 92,
+    category: "laro",
+    title: "Charades",
+    body: "Mag-act ng pelikula o kanta sa loob ng 15 segundo, bawal magsalita. Walang maka-guess, shot ka.",
+  },
+  {
+    id: 93,
+    category: "laro",
+    title: "Artista Chain",
+    body: "Magpalitan ng pangalan ng artista gamit ang huling letra ng nauna. Ma-stuck o umulit, tagay.",
+  },
+
+  // ---- QUIZ ----
+  {
+    id: 94,
+    category: "quiz",
+    title: "Trivia: Pulo-Pulo",
+    body: "Ilang isla mayroon ang Pilipinas? Lapit ka man lang. Sobrang layo ng sagot, shot.",
+  },
+  {
+    id: 95,
+    category: "quiz",
+    title: "Trivia: Kabisera",
+    body: "Ano ang kabisera ng rehiyon ng Bicol? Mali, inom. Tama, ligtas ka.",
+  },
+  {
+    id: 96,
+    category: "quiz",
+    title: "Spelling Bee",
+    body: "I-spell ng tama, walang basa: 'entablado'. Mali, shot. Bonus round: 'kwarentena'.",
+  },
+
+  // ---- WILD ----
+  {
+    id: 97,
+    category: "wild",
+    title: "Double or Nothing",
+    body: "Mag-toss ng barya kasama ng isang kalaban. Ang talo, dalawang shot. Panalo, ligtas pareho.",
+  },
+  {
+    id: 98,
+    category: "wild",
+    title: "Magpalit Upuan",
+    body: "Lahat lumipat ng upuan ngayon na. Ang huling makaupo, shot.",
+  },
+  {
+    id: 99,
+    category: "wild",
+    title: "Buddy System",
+    body: "Pumili ng partner. Hanggang matapos ang susunod na 3 baraha, pareho kayong iinom kapag isa sa inyo ang nabunot.",
+  },
+  {
+    id: 100,
+    category: "wild",
+    title: "Sabay Tagay",
+    body: "Walang pinili, walang pinatawad. Lahat tayo, isang shot. Cheers — Suko o Shot!",
+  },
 ];
